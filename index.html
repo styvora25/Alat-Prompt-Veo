@@ -1,172 +1,436 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f4f8;
-      color: #334155;
-    }
-    textarea { resize: vertical; min-height: 80px; }
-    .prompt-output::-webkit-scrollbar { width: 8px; }
-    .prompt-output::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
-    .prompt-output::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
-    .prompt-output::-webkit-scrollbar-thumb:hover { background: #64748b; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3 (Revisi 3)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a clean look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light background */
+            color: #334155; /* Dark gray text */
+        }
+        /* Style for textareas */
+        textarea {
+            resize: vertical; /* Allow vertical resizing */
+            min-height: 80px; /* Minimum height for textareas */
+        }
+        /* Custom scrollbar for generated prompt area */
+        .prompt-output::-webkit-scrollbar {
+            width: 8px;
+        }
+        .prompt-output::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .prompt-output::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        .prompt-output::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+        /* Styling for the scene sections */
+        .scene-section {
+            border: 1px solid #cbd5e1; /* slate-300 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            background-color: #f8fafc; /* slate-50 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+        }
+    </style>
 </head>
 <body class="p-4 sm:p-6 md:p-8 flex items-center justify-center min-h-screen">
-  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-4xl border border-gray-200">
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-purple-700 mb-6 sm:mb-8">
-      Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3
-    </h1>
-    <p class="text-center text-gray-600 mb-8">
-      Isi formulir di bawah ini untuk menghasilkan prompt video iklan yang menarik dan efektif.
-    </p>
+    <div class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-4xl border border-gray-200">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-purple-700 mb-6 sm:mb-8">
+            Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3
+        </h1>
+        <p class="text-center text-gray-600 mb-8">
+            Isi formulir di bawah ini untuk menghasilkan prompt video iklan yang menarik dan efektif, kini dengan dukungan multi-adegan dan detail lebih lanjut.
+        </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="col-span-2">
-        <label for="campaignTitle" class="block text-lg font-semibold text-gray-700 mb-2">1. Judul Prompt / Nama Kampanye</label>
-        <input type="text" id="campaignTitle" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kampanye Peluncuran 'Kopi Senja' UMKM Kopi Kita">
-      </div>
-      <div class="col-span-2">
-        <label for="umkmProduct" class="block text-lg font-semibold text-gray-700 mb-2">2. Nama UMKM / Produk</label>
-        <input type="text" id="umkmProduct" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kopi Senja dari Kopi Kita">
-      </div>
-      <div class="col-span-2">
-        <label for="targetAudience" class="block text-lg font-semibold text-gray-700 mb-2">3. Target Audiens</label>
-        <textarea id="targetAudience" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pecinta kopi usia 25-45 tahun, pekerja kantoran, mencari kopi berkualitas untuk relaksasi."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="adGoal" class="block text-lg font-semibold text-gray-700 mb-2">4. Tujuan Iklan</label>
-        <textarea id="adGoal" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Meningkatkan brand awareness, mendorong penjualan produk baru, mengumpulkan leads."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="keyMessage" class="block text-lg font-semibold text-gray-700 mb-2">5. Pesan Kunci / Slogan</label>
-        <input type="text" id="keyMessage" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kopi Senja: Nikmati Setiap Momenmu.'">
-      </div>
-      <div class="col-span-2">
-        <label for="productVisual" class="block text-lg font-semibold text-gray-700 mb-2">6. Deskripsi Visual Produk / Layanan</label>
-        <textarea id="productVisual" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kemasan kopi berwarna cokelat tua dengan desain minimalis. Biji kopi yang baru digiling, uap mengepul dari cangkir kopi."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="characterVisual" class="block text-lg font-semibold text-gray-700 mb-2">7. Deskripsi Visual Karakter (jika ada)</label>
-        <textarea id="characterVisual" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Seorang wanita muda (28 tahun) tersenyum santai sambil menyeruput kopi di sofa."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="locationDesc" class="block text-lg font-semibold text-gray-700 mb-2">8. Deskripsi Lokasi atau Latar</label>
-        <textarea id="locationDesc" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kafe modern dengan pencahayaan hangat di sore hari."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="actionDesc" class="block text-lg font-semibold text-gray-700 mb-2">9. Deskripsi Aksi di Adegan</label>
-        <textarea id="actionDesc" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tangan menuangkan air panas ke bubuk kopi."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="visualStyle" class="block text-lg font-semibold text-gray-700 mb-2">10. Jenis Gaya Visual & Sinematografi</label>
-        <textarea id="visualStyle" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Estetika minimalis dan bersih. Tone warna hangat dan alami."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="cameraShot" class="block text-lg font-semibold text-gray-700 mb-2">11. Jenis Shot & Gerakan Kamera</label>
-        <textarea id="cameraShot" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Close-up detail biji kopi. Slow-motion uap mengepul."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="audioDesign" class="block text-lg font-semibold text-gray-700 mb-2">12. Desain Audio</label>
-        <textarea id="audioDesign" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Musik latar upbeat dan ceria."></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="callToAction" class="block text-lg font-semibold text-gray-700 mb-2">13. Call to Action (CTA)</label>
-        <textarea id="callToAction" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kunjungi website kami di [URL]'"></textarea>
-      </div>
-      <div class="col-span-2">
-        <label for="specialNotes" class="block text-lg font-semibold text-gray-700 mb-2">14. Catatan atau Elemen Khusus</label>
-        <textarea id="specialNotes" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tampilkan logo UMKM di akhir video."></textarea>
-      </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Global Fields -->
+            <div class="col-span-2">
+                <label for="campaignTitle" class="block text-lg font-semibold text-gray-700 mb-2">1. Judul Prompt / Nama Kampanye</label>
+                <input type="text" id="campaignTitle" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kampanye Peluncuran 'Kopi Senja' UMKM Kopi Kita">
+            </div>
+
+            <div class="col-span-2">
+                <label for="umkmProduct" class="block text-lg font-semibold text-gray-700 mb-2">2. Nama UMKM / Produk</label>
+                <input type="text" id="umkmProduct" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kopi Senja dari Kopi Kita">
+            </div>
+
+            <div class="col-span-2">
+                <label for="targetAudience" class="block text-lg font-semibold text-gray-700 mb-2">3. Target Audiens (Demografi, Minat, Kebutuhan)</label>
+                <textarea id="targetAudience" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pecinta kopi usia 25-45 tahun, pekerja kantoran yang sibuk, mencari kopi berkualitas untuk relaksasi dan meningkatkan fokus."></textarea>
+            </div>
+
+            <div class="col-span-2">
+                <label for="adGoal" class="block text-lg font-semibold text-gray-700 mb-2">4. Tujuan Iklan (Brand Awareness, Penjualan, Leads, dll.)</label>
+                <textarea id="adGoal" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Meningkatkan brand awareness Kopi Senja, mendorong penjualan produk baru via website, mengumpulkan leads untuk newsletter."></textarea>
+            </div>
+
+            <div class="col-span-2">
+                <label for="keyMessage" class="block text-lg font-semibold text-gray-700 mb-2">5. Pesan Kunci / Slogan Utama</label>
+                <input type="text" id="keyMessage" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kopi Senja: Nikmati Setiap Momenmu dengan Kualitas Terbaik.'">
+            </div>
+
+            <div class="col-span-2">
+                <label for="videoLanguage" class="block text-lg font-semibold text-gray-700 mb-2">6. Bahasa Video (Untuk Voiceover/Teks di Layar)</label>
+                <select id="videoLanguage" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm">
+                    <option value="Bahasa Indonesia">Bahasa Indonesia</option>
+                    <option value="English">English</option>
+                    <option value="Mandarin">Mandarin</option>
+                    <option value="Japanese">Japanese</option>
+                    <option value="Korean">Korean</option>
+                    <option value="Other">Lainnya (sebutkan di catatan khusus)</option>
+                </select>
+            </div>
+
+            <div class="col-span-2">
+                <label for="generalInstructions" class="block text-lg font-semibold text-gray-700 mb-2">7. Instruksi Umum Video (Termasuk Hindari Subtitle)</label>
+                <textarea id="generalInstructions" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pastikan tidak ada subtitle yang muncul di video. Gunakan logo UMKM di awal dan akhir video. Tone keseluruhan harus ceria dan membangkitkan semangat."></textarea>
+            </div>
+
+            <div class="col-span-2">
+                <label for="umkmAddress" class="block text-lg font-semibold text-gray-700 mb-2">8. Alamat Fisik UMKM (Jika Ada)</label>
+                <textarea id="umkmAddress" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Jl. Merdeka No. 123, Jakarta Pusat, DKI Jakarta"></textarea>
+            </div>
+
+            <div class="col-span-2">
+                <label for="contactInfo" class="block text-lg font-semibold text-gray-700 mb-2">9. Informasi Kontak (Telepon, Email, Media Sosial)</label>
+                <textarea id="contactInfo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Telp: 0812-3456-7890, Email: info@kopisenja.com, IG: @kopisenja.id, FB: Kopi Senja Official"></textarea>
+            </div>
+
+            <div class="col-span-2">
+                <label for="storeBoothInfo" class="block text-lg font-semibold text-gray-700 mb-2">10. Informasi Toko / Booth / Platform Penjualan</label>
+                <textarea id="storeBoothInfo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tersedia di Toko Kopi Kita Cabang Sudirman, Booth di Pasar Raya setiap Minggu, atau beli online di Shopee/Tokopedia: Kopi Senja Official Store"></textarea>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Detail Adegan</h2>
+        <div id="scenesContainer">
+            <!-- Scene templates will be added here by JavaScript -->
+        </div>
+
+        <div class="flex justify-center mb-8">
+            <button id="addSceneBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105 mr-4">
+                + Tambah Adegan
+            </button>
+            <button id="generatePromptBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                Hasilkan Prompt Iklan
+            </button>
+        </div>
+
+        <!-- Output Area -->
+        <div id="outputContainer" class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Prompt Iklan yang Dihasilkan:</h2>
+            <pre id="generatedPrompt" class="prompt-output whitespace-pre-wrap break-words p-4 bg-gray-100 rounded-lg border border-gray-300 text-gray-800 text-sm overflow-y-auto max-h-96"></pre>
+            <div class="flex justify-center mt-4">
+                <button id="copyToClipboardBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded-full shadow transition duration-300 ease-in-out transform hover:scale-105">
+                    Salin ke Clipboard
+                </button>
+            </div>
+        </div>
+
+        <!-- Message Box for alerts -->
+        <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+                <p id="messageText" class="text-lg font-semibold mb-4"></p>
+                <button id="closeMessageBoxBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md">
+                    Oke
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="flex justify-center mb-8">
-      <button id="generatePromptBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-        Hasilkan Prompt Iklan
-      </button>
-    </div>
+    <script>
+        // Get references to DOM elements
+        const campaignTitle = document.getElementById('campaignTitle');
+        const umkmProduct = document.getElementById('umkmProduct');
+        const targetAudience = document.getElementById('targetAudience');
+        const adGoal = document.getElementById('adGoal');
+        const keyMessage = document.getElementById('keyMessage');
+        const videoLanguage = document.getElementById('videoLanguage');
+        const generalInstructions = document.getElementById('generalInstructions');
+        const umkmAddress = document.getElementById('umkmAddress'); // New field
+        const contactInfo = document.getElementById('contactInfo'); // New field
+        const storeBoothInfo = document.getElementById('storeBoothInfo'); // New field
+        const scenesContainer = document.getElementById('scenesContainer');
+        const addSceneBtn = document.getElementById('addSceneBtn');
+        const generatePromptBtn = document.getElementById('generatePromptBtn');
+        const generatedPrompt = document.getElementById('generatedPrompt');
+        const outputContainer = document.getElementById('outputContainer');
+        const copyToClipboardBtn = document.getElementById('copyToClipboardBtn');
 
-    <div id="outputContainer" class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner hidden">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Prompt Iklan yang Dihasilkan:</h2>
-      <pre id="generatedPrompt" class="prompt-output whitespace-pre-wrap break-words p-4 bg-gray-100 rounded-lg border border-gray-300 text-gray-800 text-sm overflow-y-auto max-h-96"></pre>
-      <div class="flex justify-center mt-4">
-        <button id="copyToClipboardBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded-full shadow transition duration-300 ease-in-out transform hover:scale-105">
-          Salin ke Clipboard
-        </button>
-      </div>
-    </div>
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+        const closeMessageBoxBtn = document.getElementById('closeMessageBoxBtn');
 
-    <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
-      <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
-        <p id="messageText" class="text-lg font-semibold mb-4"></p>
-        <button id="closeMessageBoxBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md">Oke</button>
-      </div>
-    </div>
-  </div>
+        let sceneCount = 0;
 
-  <script>
-    const campaignTitle = document.getElementById('campaignTitle');
-    const umkmProduct = document.getElementById('umkmProduct');
-    const targetAudience = document.getElementById('targetAudience');
-    const adGoal = document.getElementById('adGoal');
-    const keyMessage = document.getElementById('keyMessage');
-    const productVisual = document.getElementById('productVisual');
-    const characterVisual = document.getElementById('characterVisual');
-    const locationDesc = document.getElementById('locationDesc');
-    const actionDesc = document.getElementById('actionDesc');
-    const visualStyle = document.getElementById('visualStyle');
-    const cameraShot = document.getElementById('cameraShot');
-    const audioDesign = document.getElementById('audioDesign');
-    const callToAction = document.getElementById('callToAction');
-    const specialNotes = document.getElementById('specialNotes');
+        // Function to show custom message box
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
 
-    const generatePromptBtn = document.getElementById('generatePromptBtn');
-    const generatedPrompt = document.getElementById('generatedPrompt');
-    const outputContainer = document.getElementById('outputContainer');
-    const copyToClipboardBtn = document.getElementById('copyToClipboardBtn');
-    const messageBox = document.getElementById('messageBox');
-    const messageText = document.getElementById('messageText');
-    const closeMessageBoxBtn = document.getElementById('closeMessageBoxBtn');
+        // Event listener for closing the message box
+        closeMessageBoxBtn.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
 
-    function showMessageBox(message) {
-      messageText.textContent = message;
-      messageBox.classList.remove('hidden');
-    }
+        // Function to add a new scene block
+        function addScene() {
+            sceneCount++;
+            const sceneDiv = document.createElement('div');
+            sceneDiv.classList.add('scene-section', 'mb-6');
+            sceneDiv.setAttribute('data-scene-id', sceneCount);
 
-    closeMessageBoxBtn.addEventListener('click', () => {
-      messageBox.classList.add('hidden');
-    });
+            sceneDiv.innerHTML = `
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-gray-800">Adegan ${sceneCount}</h3>
+                    <button type="button" class="remove-scene-btn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded-full text-sm transition duration-300 ease-in-out">Hapus Adegan</button>
+                </div>
 
-    generatePromptBtn.addEventListener('click', () => {
-      const prompt = `
-### TEMPLATE PROMPT VIDEO IKLAN UMKM/PRODUK GEMINI VEO 3
-...
-`.trim();
-      generatedPrompt.textContent = prompt;
-      outputContainer.classList.remove('hidden');
-    });
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label for="sceneTitle${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Judul Adegan (Opsional)</label>
+                        <input type="text" id="sceneTitle${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pembukaan Produk">
+                    </div>
 
-    copyToClipboardBtn.addEventListener('click', () => {
-      const textToCopy = generatedPrompt.textContent;
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = textToCopy;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-      try {
-        document.execCommand('copy');
-        showMessageBox('Prompt berhasil disalin ke clipboard!');
-      } catch (err) {
-        showMessageBox('Gagal menyalin prompt. Silakan salin secara manual.');
-      } finally {
-        document.body.removeChild(tempTextArea);
-      }
-    });
-  </script>
+                    <div class="col-span-2">
+                        <label for="sceneDuration${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Durasi Adegan (Detik)</label>
+                        <input type="number" id="sceneDuration${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 5">
+                    </div>
+
+                    <div class="col-span-2 mt-4">
+                        <h4 class="text-lg font-bold text-gray-700 mb-2">Aksi Berbicara / Voiceover</h4>
+                        <div class="mb-3">
+                            <label for="speaker${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Siapa yang Berbicara (Karakter/Narator)</label>
+                            <input type="text" id="speaker${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Narator / Karakter A">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dialogue${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Naskah Dialogue / Voiceover</label>
+                            <textarea id="dialogue${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Rasakan kesegaran Kopi Senja di setiap tegukan!'"></textarea>
+                        </div>
+                        <div>
+                            <label for="intonation${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Intonasi / Gaya Bicara</label>
+                            <input type="text" id="intonation${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Ceria, antusias, menenangkan, persuasif."></input>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 mt-4">
+                        <label for="productVisual${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Deskripsi Visual Produk / Layanan (Detail)</label>
+                        <textarea id="productVisual${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kemasan kopi berwarna cokelat tua dengan tekstur matte dan logo emas yang berkilau. Biji kopi arabika yang baru digiling, terlihat jelas butiran-butirannya."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="characterVisual${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Deskripsi Visual Karakter (jika ada, detail)</label>
+                        <textarea id="characterVisual${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Seorang wanita muda (28 tahun), rambut sebahu berwarna cokelat terang, mengenakan sweater rajut krem, tersenyum santai. Atau: Seorang wanita (30 tahun), pakaian sopan, berhijab modern, ekspresi ramah, sedang memegang produk."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="locationDesc${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Deskripsi Lokasi atau Latar (Detail Suasana, Waktu, Warna)</label>
+                        <textarea id="locationDesc${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Interior kafe modern dengan dominasi warna kayu dan abu-abu, pencahayaan lembut dari jendela besar di sore hari. Suasana tenang dan nyaman."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="actionDesc${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Deskripsi Aksi di Adegan (Gerakan, Interaksi, Momen Penting)</label>
+                        <textarea id="actionDesc${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tangan elegan menuangkan air panas dari teko gooseneck ke bubuk kopi di V60. Uap mengepul lembut. Karakter wanita mengangkat cangkir ke bibir, menyesap, lalu matanya terpejam sejenak menikmati."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="visualStyle${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Jenis Gaya Visual & Sinematografi (Tone, Pencahayaan, Estetika)</label>
+                        <textarea id="visualStyle${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Estetika minimalis dan bersih, tone warna hangat dan alami (earthy tones). Pencahayaan lembut dan diffused. Sinematografi yang menenangkan dan premium."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="cameraShot${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Jenis Shot & Gerakan Kamera (Spesifik)</label>
+                        <textarea id="cameraShot${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Dimulai dengan close-up ekstrem pada biji kopi yang baru digiling. Kemudian slow-motion dolly in saat uap mengepul dari cangkir. Diikuti dengan medium shot karakter yang tersenyum puas."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="audioDesign${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Desain Audio Adegan (Musik, SFX, Ambience)</label>
+                        <textarea id="audioDesign${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Musik latar instrumental akustik yang menenangkan. Sound effect gemericik air, suara 'slurp' kopi yang jernih. Ambience kafe yang tenang dengan samar suara obrolan."></textarea>
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="sceneNotes${sceneCount}" class="block text-md font-semibold text-gray-700 mb-1">Catatan atau Elemen Khusus Adegan</label>
+                        <textarea id="sceneNotes${sceneCount}" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pastikan ada efek bokeh yang kuat di latar belakang. Teks 'Kopi Senja' muncul singkat di layar dengan font elegan."></textarea>
+                    </div>
+                </div>
+            `;
+            scenesContainer.appendChild(sceneDiv);
+
+            // Add event listener for the remove button
+            sceneDiv.querySelector('.remove-scene-btn').addEventListener('click', () => {
+                sceneDiv.remove();
+                updateSceneNumbers();
+            });
+        }
+
+        // Function to update scene numbers after removal
+        function updateSceneNumbers() {
+            const sceneDivs = scenesContainer.querySelectorAll('.scene-section');
+            sceneCount = 0; // Reset count
+            sceneDivs.forEach((div, index) => {
+                sceneCount = index + 1;
+                div.setAttribute('data-scene-id', sceneCount);
+                div.querySelector('h3').textContent = `Adegan ${sceneCount}`;
+                // Update IDs of inner elements to match new scene number (important for retrieval)
+                div.querySelectorAll('[id]').forEach(el => {
+                    const oldId = el.id;
+                    const newId = oldId.replace(/\d+$/, sceneCount); // Replace last number with new count
+                    el.id = newId;
+                    if (el.tagName === 'LABEL') {
+                        el.setAttribute('for', newId);
+                    }
+                });
+            });
+        }
+
+
+        // Add initial scene when the page loads
+        document.addEventListener('DOMContentLoaded', addScene);
+
+        // Event listener for adding a new scene
+        addSceneBtn.addEventListener('click', addScene);
+
+        // Event listener for generating the prompt
+        generatePromptBtn.addEventListener('click', () => {
+            let scenesPrompt = '';
+            const sceneDivs = scenesContainer.querySelectorAll('.scene-section');
+
+            if (sceneDivs.length === 0) {
+                showMessageBox('Mohon tambahkan setidaknya satu adegan untuk menghasilkan prompt.');
+                return;
+            }
+
+            sceneDivs.forEach((sceneDiv, index) => {
+                const sceneId = sceneDiv.getAttribute('data-scene-id');
+                const sceneTitle = document.getElementById(`sceneTitle${sceneId}`).value.trim();
+                const sceneDuration = document.getElementById(`sceneDuration${sceneId}`).value.trim();
+                const speaker = document.getElementById(`speaker${sceneId}`).value.trim();
+                const dialogue = document.getElementById(`dialogue${sceneId}`).value.trim();
+                const intonation = document.getElementById(`intonation${sceneId}`).value.trim();
+                const productVisual = document.getElementById(`productVisual${sceneId}`).value.trim();
+                const characterVisual = document.getElementById(`characterVisual${sceneId}`).value.trim();
+                const locationDesc = document.getElementById(`locationDesc${sceneId}`).value.trim();
+                const actionDesc = document.getElementById(`actionDesc${sceneId}`).value.trim();
+                const visualStyle = document.getElementById(`visualStyle${sceneId}`).value.trim();
+                const cameraShot = document.getElementById(`cameraShot${sceneId}`).value.trim();
+                const audioDesign = document.getElementById(`audioDesign${sceneId}`).value.trim();
+                const sceneNotes = document.getElementById(`sceneNotes${sceneId}`).value.trim();
+
+                scenesPrompt += `
+**Adegan ${index + 1}${sceneTitle ? ': ' + sceneTitle : ''}:**
+* **Durasi Adegan:** \`${sceneDuration || '[Isi durasi dalam detik]'}\` detik
+* **Aksi Berbicara / Voiceover:**
+    * **Siapa yang Berbicara:** \`${speaker || '[Isi: Karakter/Narator]'}\`
+    * **Naskah Dialogue / Voiceover:** \`${dialogue || '[Isi naskah dialogue/voiceover]'}\`
+    * **Intonasi / Gaya Bicara:** \`${intonation || '[Isi: Ceria, antusias, menenangkan, persuasif]'}\`
+* **Deskripsi Visual Produk / Layanan:** \`${productVisual || '[Jelaskan detail tampilan produk/representasi visual layanan]'}\`
+* **Deskripsi Visual Karakter (jika ada):** \`${characterVisual || '[Jelaskan detail karakter yang akan muncul (usia, ekspresi, pakaian, dll). Contoh: Seorang wanita (30 tahun), pakaian sopan, berhijab modern, ekspresi ramah, sedang memegang produk.]'}\`
+* **Deskripsi Lokasi atau Latar:** \`${locationDesc || '[Jelaskan detail lokasi dan suasana (waktu, warna, kondisi lingkungan)]'}\`
+* **Deskripsi Aksi di Adegan:** \`${actionDesc || '[Jelaskan interaksi dengan produk/layanan, gerakan, momen penting]'}\`
+* **Jenis Gaya Visual & Sinematografi:** \`${visualStyle || '[Tentukan tone warna, pencahayaan, dan gaya iklan (modern, rustic, luxurious, playful, dll)]'}\`
+* **Jenis Shot & Gerakan Kamera:** \`${cameraShot || '[Spesifikasikan jenis shot dan gerakan kamera yang menonjolkan produk/pesan]'}\`
+* **Desain Audio Adegan:** \`${audioDesign || '[Jelaskan musik latar, sound effect, dan ambience spesifik adegan]'}\`
+* **Catatan atau Elemen Khusus Adegan:** \`${sceneNotes || '[Tambahkan instruksi khusus untuk adegan ini]'}\`
+                `.trim() + '\n\n';
+            });
+
+            const finalPrompt = `
+### **TEMPLATE PROMPT VIDEO IKLAN UMKM/PRODUK GEMINI VEO 3**
+
+**1. Judul Prompt / Nama Kampanye:**
+\`${campaignTitle.value.trim() || '[Isi Judul Prompt / Nama Kampanye]'}\`
+
+**2. Nama UMKM / Produk:**
+\`${umkmProduct.value.trim() || '[Isi Nama UMKM / Produk]'}\`
+
+**3. Target Audiens:**
+\`${targetAudience.value.trim() || '[Isi Target Audiens (Demografi, Minat, Kebutuhan)]'}\`
+
+**4. Tujuan Iklan:**
+\`${adGoal.value.trim() || '[Isi Tujuan Iklan (Brand Awareness, Penjualan, Leads, dll.)]'}\`
+
+**5. Pesan Kunci / Slogan Utama:**
+\`${keyMessage.value.trim() || '[Isi Pesan Kunci / Slogan Utama]'}\`
+
+**6. Bahasa Video:**
+\`${videoLanguage.value.trim() || '[Pilih Bahasa Video]'}\`
+
+**7. Instruksi Umum Video:**
+\`${generalInstructions.value.trim() || '[Isi Instruksi Umum Video (Contoh: "Pastikan tidak ada subtitle yang muncul di video.")]'}\`
+
+**8. Alamat Fisik UMKM (Jika Ada):**
+\`${umkmAddress.value.trim() || '[Isi Alamat Fisik UMKM]'}\`
+
+**9. Informasi Kontak (Telepon, Email, Media Sosial):**
+\`${contactInfo.value.trim() || '[Isi Informasi Kontak (Telepon, Email, Media Sosial)]'}\`
+
+**10. Informasi Toko / Booth / Platform Penjualan:**
+\`${storeBoothInfo.value.trim() || '[Isi Informasi Toko / Booth / Platform Penjualan]'}\`
+
+---
+
+**DETAIL ADEGAN:**
+
+${scenesPrompt.trim()}
+
+---
+
+**11. Call to Action (CTA) Akhir:**
+\`${document.getElementById('callToAction') ? document.getElementById('callToAction').value.trim() : '[Isi Pesan yang mendorong audiens untuk bertindak (kunjungi website, beli sekarang, dll)]'}\`
+
+**12. Catatan Umum Tambahan:**
+\`${document.getElementById('finalNotes') ? document.getElementById('finalNotes').value.trim() : '[Tambahkan catatan umum tambahan untuk keseluruhan video]'}\`
+            `.trim();
+
+            generatedPrompt.textContent = finalPrompt;
+            outputContainer.classList.remove('hidden'); // Show the output container
+        });
+
+        // Add a global CTA and Final Notes field at the very end
+        const globalCtaAndNotes = document.createElement('div');
+        globalCtaAndNotes.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'gap-6', 'mb-8', 'mt-8');
+        globalCtaAndNotes.innerHTML = `
+            <div class="col-span-2">
+                <label for="callToAction" class="block text-lg font-semibold text-gray-700 mb-2">11. Call to Action (CTA) Akhir</label>
+                <textarea id="callToAction" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kunjungi website kami sekarang di www.umkmkita.com' atau 'Dapatkan Kopi Senja di toko terdekat!'"></textarea>
+            </div>
+            <div class="col-span-2">
+                <label for="finalNotes" class="block text-lg font-semibold text-gray-700 mb-2">12. Catatan Umum Tambahan (untuk keseluruhan video)</label>
+                <textarea id="finalNotes" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pastikan transisi antar adegan mulus. Total durasi video tidak lebih dari 30 detik."></textarea>
+            </div>
+        `;
+        scenesContainer.parentNode.insertBefore(globalCtaAndNotes, addSceneBtn.parentNode);
+
+
+        // Event listener for copying to clipboard
+        copyToClipboardBtn.addEventListener('click', () => {
+            const textToCopy = generatedPrompt.textContent;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showMessageBox('Prompt berhasil disalin ke clipboard!');
+            } catch (err) {
+                showMessageBox('Gagal menyalin prompt. Silakan salin secara manual.');
+                console.error('Failed to copy text:', err);
+            } finally {
+                document.body.removeChild(tempTextArea);
+            }
+        });
+    </script>
 </body>
-</html> 
+</html>
