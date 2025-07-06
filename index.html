@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f4f8;
+      color: #334155;
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    .prompt-output::-webkit-scrollbar { width: 8px; }
+    .prompt-output::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+    .prompt-output::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+    .prompt-output::-webkit-scrollbar-thumb:hover { background: #64748b; }
+  </style>
+</head>
+<body class="p-4 sm:p-6 md:p-8 flex items-center justify-center min-h-screen">
+  <div class="bg-white p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-4xl border border-gray-200">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-purple-700 mb-6 sm:mb-8">
+      Alat Pembuat Prompt Iklan UMKM/Produk Gemini Veo 3
+    </h1>
+    <p class="text-center text-gray-600 mb-8">
+      Isi formulir di bawah ini untuk menghasilkan prompt video iklan yang menarik dan efektif.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <div class="col-span-2">
+        <label for="campaignTitle" class="block text-lg font-semibold text-gray-700 mb-2">1. Judul Prompt / Nama Kampanye</label>
+        <input type="text" id="campaignTitle" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kampanye Peluncuran 'Kopi Senja' UMKM Kopi Kita">
+      </div>
+      <div class="col-span-2">
+        <label for="umkmProduct" class="block text-lg font-semibold text-gray-700 mb-2">2. Nama UMKM / Produk</label>
+        <input type="text" id="umkmProduct" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kopi Senja dari Kopi Kita">
+      </div>
+      <div class="col-span-2">
+        <label for="targetAudience" class="block text-lg font-semibold text-gray-700 mb-2">3. Target Audiens</label>
+        <textarea id="targetAudience" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Pecinta kopi usia 25-45 tahun, pekerja kantoran, mencari kopi berkualitas untuk relaksasi."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="adGoal" class="block text-lg font-semibold text-gray-700 mb-2">4. Tujuan Iklan</label>
+        <textarea id="adGoal" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Meningkatkan brand awareness, mendorong penjualan produk baru, mengumpulkan leads."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="keyMessage" class="block text-lg font-semibold text-gray-700 mb-2">5. Pesan Kunci / Slogan</label>
+        <input type="text" id="keyMessage" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kopi Senja: Nikmati Setiap Momenmu.'">
+      </div>
+      <div class="col-span-2">
+        <label for="productVisual" class="block text-lg font-semibold text-gray-700 mb-2">6. Deskripsi Visual Produk / Layanan</label>
+        <textarea id="productVisual" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kemasan kopi berwarna cokelat tua dengan desain minimalis. Biji kopi yang baru digiling, uap mengepul dari cangkir kopi."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="characterVisual" class="block text-lg font-semibold text-gray-700 mb-2">7. Deskripsi Visual Karakter (jika ada)</label>
+        <textarea id="characterVisual" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Seorang wanita muda (28 tahun) tersenyum santai sambil menyeruput kopi di sofa."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="locationDesc" class="block text-lg font-semibold text-gray-700 mb-2">8. Deskripsi Lokasi atau Latar</label>
+        <textarea id="locationDesc" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Kafe modern dengan pencahayaan hangat di sore hari."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="actionDesc" class="block text-lg font-semibold text-gray-700 mb-2">9. Deskripsi Aksi di Adegan</label>
+        <textarea id="actionDesc" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tangan menuangkan air panas ke bubuk kopi."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="visualStyle" class="block text-lg font-semibold text-gray-700 mb-2">10. Jenis Gaya Visual & Sinematografi</label>
+        <textarea id="visualStyle" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Estetika minimalis dan bersih. Tone warna hangat dan alami."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="cameraShot" class="block text-lg font-semibold text-gray-700 mb-2">11. Jenis Shot & Gerakan Kamera</label>
+        <textarea id="cameraShot" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Close-up detail biji kopi. Slow-motion uap mengepul."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="audioDesign" class="block text-lg font-semibold text-gray-700 mb-2">12. Desain Audio</label>
+        <textarea id="audioDesign" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Musik latar upbeat dan ceria."></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="callToAction" class="block text-lg font-semibold text-gray-700 mb-2">13. Call to Action (CTA)</label>
+        <textarea id="callToAction" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: 'Kunjungi website kami di [URL]'"></textarea>
+      </div>
+      <div class="col-span-2">
+        <label for="specialNotes" class="block text-lg font-semibold text-gray-700 mb-2">14. Catatan atau Elemen Khusus</label>
+        <textarea id="specialNotes" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-purple-500 focus:border-purple-500 shadow-sm" placeholder="Contoh: Tampilkan logo UMKM di akhir video."></textarea>
+      </div>
+    </div>
+
+    <div class="flex justify-center mb-8">
+      <button id="generatePromptBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+        Hasilkan Prompt Iklan
+      </button>
+    </div>
+
+    <div id="outputContainer" class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner hidden">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Prompt Iklan yang Dihasilkan:</h2>
+      <pre id="generatedPrompt" class="prompt-output whitespace-pre-wrap break-words p-4 bg-gray-100 rounded-lg border border-gray-300 text-gray-800 text-sm overflow-y-auto max-h-96"></pre>
+      <div class="flex justify-center mt-4">
+        <button id="copyToClipboardBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-5 rounded-full shadow transition duration-300 ease-in-out transform hover:scale-105">
+          Salin ke Clipboard
+        </button>
+      </div>
+    </div>
+
+    <div id="messageBox" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full text-center">
+        <p id="messageText" class="text-lg font-semibold mb-4"></p>
+        <button id="closeMessageBoxBtn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md">Oke</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const campaignTitle = document.getElementById('campaignTitle');
+    const umkmProduct = document.getElementById('umkmProduct');
+    const targetAudience = document.getElementById('targetAudience');
+    const adGoal = document.getElementById('adGoal');
+    const keyMessage = document.getElementById('keyMessage');
+    const productVisual = document.getElementById('productVisual');
+    const characterVisual = document.getElementById('characterVisual');
+    const locationDesc = document.getElementById('locationDesc');
+    const actionDesc = document.getElementById('actionDesc');
+    const visualStyle = document.getElementById('visualStyle');
+    const cameraShot = document.getElementById('cameraShot');
+    const audioDesign = document.getElementById('audioDesign');
+    const callToAction = document.getElementById('callToAction');
+    const specialNotes = document.getElementById('specialNotes');
+
+    const generatePromptBtn = document.getElementById('generatePromptBtn');
+    const generatedPrompt = document.getElementById('generatedPrompt');
+    const outputContainer = document.getElementById('outputContainer');
+    const copyToClipboardBtn = document.getElementById('copyToClipboardBtn');
+    const messageBox = document.getElementById('messageBox');
+    const messageText = document.getElementById('messageText');
+    const closeMessageBoxBtn = document.getElementById('closeMessageBoxBtn');
+
+    function showMessageBox(message) {
+      messageText.textContent = message;
+      messageBox.classList.remove('hidden');
+    }
+
+    closeMessageBoxBtn.addEventListener('click', () => {
+      messageBox.classList.add('hidden');
+    });
+
+    generatePromptBtn.addEventListener('click', () => {
+      const prompt = `
+### TEMPLATE PROMPT VIDEO IKLAN UMKM/PRODUK GEMINI VEO 3
+...
+`.trim();
+      generatedPrompt.textContent = prompt;
+      outputContainer.classList.remove('hidden');
+    });
+
+    copyToClipboardBtn.addEventListener('click', () => {
+      const textToCopy = generatedPrompt.textContent;
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = textToCopy;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      try {
+        document.execCommand('copy');
+        showMessageBox('Prompt berhasil disalin ke clipboard!');
+      } catch (err) {
+        showMessageBox('Gagal menyalin prompt. Silakan salin secara manual.');
+      } finally {
+        document.body.removeChild(tempTextArea);
+      }
+    });
+  </script>
+</body>
+</html>
